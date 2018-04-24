@@ -1,6 +1,3 @@
-# WYH
+# improve the retrieval accuracy by proximity
 
-https://www.codeproject.com/Articles/439890/Text-Documents-Clustering-using-K-Means-Algorithm
-http://grokbase.com/t/lucene/java-user/085fw0een9/document-clustering-with-lucene
-https://github.com/ezraerb/DocumentCluster
-https://github.com/debashishc/doc-clustering
+We can improve the retrieval accuracy by determining the goodness of a set of proximity terms that takes advantage of the structured nature of web documents, document metadata, and phrasal information from search engine user query logs. Previous approaches to proximity mainly consider n-grams of query terms and their matches in the document. One of the most widely used models for information retrieval, BM25  does not include proximity information. Some other researchers made improvement on the   existing retrieval models, e.g:adding a span-based relevance score( a span must contain all query terms, in conjunction with existing retrieval models) .Another advanced method is to propose a machine learning method to determine the “goodness” of a span, and then describe how the span “goodness” scores can be combined and input as a feature into ranking model. According to the real experiment, generally the method can improve the  ranking accuracy over state-of-the-art ranking methods by as much as 13%
