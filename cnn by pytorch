@@ -47,3 +47,41 @@ print(out)
 
 net.zero_grad()
 out.backward(torch.randn(1, 10))
+
+# 3. Computing the loss
+# A simple loss is: nn.MSELoss which computes the mean-squared error between the input and the target.
+output = net(input)
+target = torch.randn(10)
+target = target.view(1,-1)
+criterion = nn.MSELoss()
+
+loss = criterion(output,target)
+print(loss)
+print(loss.grad_fn)  # MSELoss
+print(loss.grad_fn.next_functions[0][0])  # Linear
+print(loss.grad_fn.next_functions[0][0].next_functions[0][0])  # ReLU
+
+# 4. Updating the weights of the network (Backprop)
+net.zero_grad()
+print('conv1.bias.grad before backward')
+print(net.conv1.bias.grad)
+
+loss.backward()
+
+print('conv1.bias.grad after backward')
+print(net.conv1.bias.grad)
+#  Updating the weights of the network
+learning_rate = 0.01
+for f in net.parameters():
+    f.data.sub_(f.grad.data * learning_rate)
+    
+# optimize the parameters:
+import torch.optim as optim
+optimizer = optim.SGD(net.parameters(),lr=0.01)
+
+# training loop:
+optimizer.zero_grad()
+output = net(input)
+loss = criterion(output,target)
+loss.backward()
+optimizer.step()
